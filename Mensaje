@@ -1,0 +1,17 @@
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+@app.route('/generate', methods=['POST'])
+def generate_message():
+    data = request.json
+    mascota_nombre = data.get('mascota_nombre', 'Tu mascota')
+    dueno_nombre = data.get('dueno_nombre', 'Su dueño')
+    mensaje_personalizado = data.get('mensaje_personalizado', 
+        f"¡Feliz Navidad de parte de Alican y {mascota_nombre}!")
+
+    mensaje = f"Hola, soy {mascota_nombre}, la mascota de {dueno_nombre}. {mensaje_personalizado}"
+    return jsonify({"mensaje": mensaje})
+
+if __name__ == '__main__':
+    app.run(debug=True)
